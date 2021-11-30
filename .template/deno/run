@@ -1,0 +1,9 @@
+#!/bin/bash
+set -eou pipefail
+
+mkdir -p bin
+if [ ! -f "bin/task" ]; then
+	sh -c "$(curl --silent --location https://taskfile.dev/install.sh)" -- -d > /dev/null 2>&1
+fi
+
+bin/task $@

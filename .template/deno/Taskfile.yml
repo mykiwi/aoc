@@ -1,0 +1,28 @@
+# https://taskfile.dev/#/usage
+
+version: '3'
+
+tasks:
+  default:
+    deps: [bin/deno, fmt]
+    cmds:
+      - bin/deno run main.ts
+
+  fmt:
+    deps: [bin/deno]
+    cmds:
+      - bin/deno fmt
+
+  clean:
+    cmds:
+      - |
+        rm -rf bin .task
+
+  bin/deno:
+    cmds:
+      - curl -fsSL https://deno.land/x/install/install.sh | sudo DENO_INSTALL=. sh > /dev/null 2>&1
+    silent: true
+    sources:
+      - ./Taskfile.yml
+    generates:
+      - bin/deno
