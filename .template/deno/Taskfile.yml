@@ -2,27 +2,32 @@
 
 version: '3'
 
+env:
+  PATH: bin:$PATH
+
 tasks:
   default:
-    deps: [bin/deno, fmt]
+    deps: [deno, fmt]
     cmds:
-      - bin/deno run main.ts
+      - deno run main.ts
 
   fmt:
-    deps: [bin/deno]
+    deps: [deno]
     cmds:
-      - bin/deno fmt
+      - echo $PATH
+      - deno fmt
 
   clean:
     cmds:
       - |
         rm -rf bin .task
 
-  bin/deno:
+  deno:
     cmds:
-      - curl -fsSL https://deno.land/x/install/install.sh | sudo DENO_INSTALL=. sh > /dev/null 2>&1
+      - |
+        which deno || curl -fsSL https://deno.land/x/install/install.sh | sudo DENO_INSTALL=. sh > /dev/null 2>&1
     silent: true
     sources:
       - ./Taskfile.yml
     generates:
-      - bin/deno
+      - deno
