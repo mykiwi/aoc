@@ -1,0 +1,28 @@
+# https://taskfile.dev/#/usage
+
+version: '3'
+
+tasks:
+  default:
+    deps: [bin/go, fmt]
+    cmds:
+      - bin/go run main.go
+
+  fmt:
+    deps: [bin/go]
+    cmds:
+      - bin/go fmt
+
+  clean:
+    cmds:
+      - |
+        rm -rf bin .task
+
+  bin/go:
+    cmds:
+      - curl -fsSL https://deno.land/x/install/install.sh | sudo DENO_INSTALL=. sh > /dev/null 2>&1
+    silent: true
+    sources:
+      - ./Taskfile.yml
+    generates:
+      - bin/go

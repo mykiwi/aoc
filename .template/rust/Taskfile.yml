@@ -1,0 +1,28 @@
+# https://taskfile.dev/#/usage
+
+version: '3'
+
+tasks:
+  default:
+    deps: [bin/rust, fmt]
+    cmds:
+      - bin/rust run main.rs
+
+  fmt:
+    deps: [bin/rust]
+    cmds:
+      - bin/rust fmt
+
+  clean:
+    cmds:
+      - |
+        rm -rf bin .task
+
+  bin/rust:
+    cmds:
+      - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh # > /dev/null 2>&1
+    silent: true
+    sources:
+      - ./Taskfile.yml
+    generates:
+      - bin/rust
