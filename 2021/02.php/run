@@ -1,0 +1,4 @@
+#!/bin/bash
+set -eou pipefail
+
+docker run -v `pwd`:/tmp/foo -w /tmp/foo --rm -ti php:8.1 php $@
